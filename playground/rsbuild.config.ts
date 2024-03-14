@@ -2,7 +2,7 @@ import path from 'path'
 
 import { defineConfig } from '@rsbuild/core'
 
-import mkcert from '..'
+import mkcert from '../plugin'
 
 export default defineConfig({
   plugins: [
