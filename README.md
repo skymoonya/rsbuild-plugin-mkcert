@@ -1,13 +1,8 @@
 # [中文文档](README-zh_CN.md)
 
-# vite-plugin-mkcert
+# rsbuild-plugin-mkcert
 
-Use mkcert to provide certificate support for vite https development services.
-
-## When should I use this plugin
-
-1. When you want to use `http/2` to solve the concurrency limit of vite http dev server requests, you find that the browser cache is invalid [#2725](https://github.com/vitejs/vite/issues/2725).
-2. I have obsessive-compulsive disorder, and I hope that the browser will not show annoying https certificate errors.
+Use mkcert to provide certificate support for rsbuild https development services.
 
 ## Effect
 
@@ -26,57 +21,19 @@ Use mkcert to provide certificate support for vite https development services.
 1. Installation dependencies
 
 ```sh
-yarn add vite-plugin-mkcert -D
+yarn add rsbuild-plugin-mkcert -D
 ```
 
-2. Configure vite
+2. Configure rsbuild
 
 ```ts
-import {defineConfig} from'vite'
-import mkcert from'vite-plugin-mkcert'
+import {defineConfig} from'@rsbuild/core'
+import mkcert from'rsbuild-plugin-mkcert'
 
-// https://vitejs.dev/config/
+// https://rsbuild.dev/config/
 export default defineConfig({
-  server: {
-    https: true
-  }, // Not needed for Vite 5+ (simply omit this option)
   plugins: [mkcert()]
 })
-```
-
-## Nuxt.js Quickstart
-
-Recent version of Nuxt.js use vite under the hood. You can still use this plugin to create a certificate but you need to manually specify the certificaate for the devserver.
-
-1. Installation dependencies
-
-```sh
-yarn add vite-plugin-mkcert -D
-```
-
-2. Configure nuxt
-
-```ts
-import mkcert from'vite-plugin-mkcert'
-
-
-// https://nuxt.com/docs/api/configuration/nuxt-config
-export default defineNuxtConfig({
-  vite: {
-    plugins: [
-      mkcert({
-        savePath: './certs', // save the generated certificate into certs directory
-        force: true, // force generation of certs even without setting https property in the vite config
-      })
-    ]
-  },
-  devServer: {
-    https: {
-      cert: './certs/cert.pem',
-      key: './certs/dev.pem'
-    }
-  }
-});
 ```
 
 ## Parameters
@@ -120,7 +77,7 @@ For Android, you will have to install the CA and then enable user roots in the d
 
 ## Display the debugging information of the plug-in
 
-Set the environment variable `DEBUG`=`vite:plugin:mkcert`
+Set the environment variable `DEBUG`=`rsbuild:plugin:mkcert`
 
 ## CHANGELOG
 
@@ -138,3 +95,4 @@ Use [mkcert](https://github.com/FiloSottile/mkcert) to install the local `CA` ce
 
 - [mkcert](https://github.com/FiloSottile/mkcert)
 - [daquinoaldo/https-localhost](https://github.com/daquinoaldo/https-localhost)
+- [vite-plugin-mkcert](https://github.com/liuweiGL/vite-plugin-mkcert)

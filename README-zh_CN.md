@@ -1,11 +1,6 @@
-# vite-plugin-mkcert
+# rsbuild-plugin-mkcert
 
-使用 mkcert 为 vite https 开发服务提供证书支持。
-
-## 什么时候应该使用该插件
-
-1. 当你希望使用 `http/2` 解决 vite http dev server 请求的并发限制时，却发现浏览器缓存无效的情况 [#2725](https://github.com/vitejs/vite/issues/2725)。
-2. 有强迫症，希望浏览器不要出现烦人的 https 证书错误。
+使用 mkcert 为 rsbuild https 开发服务提供证书支持。
 
 ## 效果
 
@@ -25,20 +20,17 @@
 1. 安装依赖
 
 ```sh
-yarn add vite-plugin-mkcert -D
+yarn add rsbuild-plugin-mkcert -D
 ```
 
-2. 配置 vite
+2. 配置 rsbuild.config.ts
 
 ```ts
-import { defineConfig } from 'vite'
-import mkcert from 'vite-plugin-mkcert'
+import { defineConfig } from '@rsbuild/core'
+import mkcert from 'rsbuild-plugin-mkcert'
 
-// https://vitejs.dev/config/
+// https://rsbuild.dev/zh/config/
 export default defineConfig({
-  server: {
-    https: true
-  },
   plugins: [mkcert()]
 })
 ```
@@ -85,7 +77,7 @@ export default defineConfig({
 
 ## 显示插件的调试信息
 
-设置环境变量 `DEBUG`=`vite:plugin:mkcert`
+设置环境变量 `DEBUG`=`rsbuild:plugin:mkcert`
 
 ## 更新日志
 
@@ -93,7 +85,7 @@ export default defineConfig({
 
 ## 原理
 
-使用 [mkcert](https://github.com/FiloSottile/mkcert) 安装本地 `CA` 证书，并为 [server.https](https://vitejs.bootcss.com/config/#server-https) 生成服务端证书。
+使用 [mkcert](https://github.com/FiloSottile/mkcert) 安装本地 `CA` 证书，并为 [server.https](https://rsbuild.dev/zh/config/server/https) 生成服务端证书。
 
 ## 友情提示
 
@@ -103,3 +95,4 @@ export default defineConfig({
 
 - [mkcert](https://github.com/FiloSottile/mkcert)
 - [daquinoaldo/https-localhost](https://github.com/daquinoaldo/https-localhost)
+- [vite-plugin-mkcert](https://github.com/liuweiGL/vite-plugin-mkcert)

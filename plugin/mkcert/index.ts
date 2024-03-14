@@ -1,8 +1,8 @@
 import path from 'path'
 import process from 'process'
 
+import { logger } from '@rsbuild/core'
 import pc from 'picocolors'
-import { Logger } from 'vite'
 
 import { PLUGIN_DATA_DIR } from '../lib/constant'
 import { debug } from '../lib/logger'
@@ -69,16 +69,14 @@ export type MkcertBaseOptions = {
   certFileName?: string
 }
 
-export type MkcertOptions = MkcertBaseOptions & {
-  logger: Logger
-}
+export type MkcertOptions = MkcertBaseOptions
 
 class Mkcert {
   private force?: boolean
   private autoUpgrade?: boolean
   private sourceType: SourceType
   private savePath: string
-  private logger: Logger
+  private logger = logger
 
   private source: BaseSource
   private localMkcert?: string
@@ -100,8 +98,7 @@ class Mkcert {
       mkcertPath,
       savePath = PLUGIN_DATA_DIR,
       keyFileName = 'dev.pem',
-      certFileName = 'cert.pem',
-      logger
+      certFileName = 'cert.pem'
     } = options
 
     this.force = force

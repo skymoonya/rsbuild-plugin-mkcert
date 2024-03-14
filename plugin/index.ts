@@ -1,4 +1,4 @@
-import { createLogger, type PluginOption } from 'vite'
+import { type RsbuildPlugin } from '@rsbuild/core'
 
 import { PLUGIN_NAME } from './lib/constant'
 import { getDefaultHosts } from './lib/util'
@@ -13,50 +13,40 @@ export type MkcertPluginOptions = MkcertBaseOptions & {
   hosts?: string[]
 }
 
-const plugin = (options: MkcertPluginOptions = {}): PluginOption => {
+const plugin = (options: MkcertPluginOptions = {}): RsbuildPlugin => {
   return {
     name: PLUGIN_NAME,
-    apply: 'serve',
-    config: async ({ server = {}, logLevel }) => {
-      // v5.0 以下支持 boolean 类型的 https 配置
-      if (typeof server.https === 'boolean' && server.https === false) {
-        return
-      }
+    setup(api) {
+      api.modifyRsbuildConfig(async (config, { mergeRsbuildConfig }) => {
+        const { server } = config
 
-      const { hosts = [], ...mkcertOptions } = options
+        const { hosts = [], ...mkcertOptions } = options
 
-      const logger = createLogger(logLevel, {
-        prefix: PLUGIN_NAME
-      })
-      const mkcert = Mkcert.create({
-        logger,
-        ...mkcertOptions
-      })
+        const mkcert = Mkcert.create({
+          ...mkcertOptions
+        })
 
-      await mkcert.init()
+        await mkcert.init()
 
-      const allHosts = [...getDefaultHosts(), ...hosts]
+        const allHosts = [...getDefaultHosts(), ...hosts]
 
-      if (typeof server.host === 'string') {
-        allHosts.push(server.host)
-      }
-
-      const uniqueHosts = Array.from(new Set(allHosts)).filter(Boolean)
-
-      const certificate = await mkcert.install(uniqueHosts)
-      const httpsConfig = {
-        key: certificate.key && Buffer.from(certificate.key),
-        cert: certificate.cert && Buffer.from(certificate.cert)
-      }
-
-      return {
-        server: {
-          https: httpsConfig
-        },
-        preview: {
-          https: httpsConfig
+        if (server?.host) {
+          allHosts.push(server.host)
         }
-      }
+
+        const uniqueHosts = Array.from(new Set(allHosts)).filter(Boolean)
+
+        const certificate = await mkcert.install(uniqueHosts)
+        const httpsConfig = {
+          key: certificate.key && Buffer.from(certificate.key),
+          cert: certificate.cert && Buffer.from(certificate.cert)
+        }
+        return mergeRsbuildConfig(config, {
+          server: {
+            https: httpsConfig
+          }
+        })
+      })
     }
   }
 }

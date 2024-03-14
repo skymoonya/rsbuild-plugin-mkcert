@@ -22,7 +22,7 @@ assignees: ''
 
 ### System Info
 
-Output of `npx envinfo --system --npmPackages vite,vite-plugin-mkcert --binaries --browsers`:
+Output of `npx envinfo --system --npmPackages @rsbuild/core,rsbuild-plugin-mkcert --binaries --browsers`:
 
 ```node
 
@@ -35,8 +35,8 @@ Used package manager: <!-- npm | yarn | pnpm -->
 <!--
   Please try not to insert an image but copy paste the log text.
 
-  1. set environment `DEBUG`=`vite:plugin:mkcert`
-  2. Run `vite --clearScreen=false`
+  1. set environment `DEBUG`=`rsbuild:plugin:mkcert`
+  2. Run `rsbuild dev`
   2. Provide the error log here.
      `node` is used as highlight to improve some colors in stack-traces
      If it doesn't work quite well, try `console`

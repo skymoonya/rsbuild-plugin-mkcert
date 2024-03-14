@@ -1,13 +1,13 @@
 {
-  "name": "vite-plugin-mkcert",
-  "version": "1.17.4",
-  "description": "Provide certificates for vite's https dev service",
+  "name": "rsbuild-plugin-mkcert",
+  "version": "0.0.0",
+  "description": "Provide certificates for rsbuild's https dev service",
   "repository": {
     "type": "git",
-    "url": "https://github.com/liuweiGL/vite-plugin-mkcert.git"
+    "url": "https://github.com/skymoonya/rsbuild-plugin-mkcert.git"
   },
   "keywords": [
-    "vite-plugin",
+    "rsbuild-plugin",
     "certificate",
     "https",
     "mkcert"
@@ -15,9 +15,9 @@
   "author": "liuweigl",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/liuweiGL/vite-plugin-mkcert/issues"
+    "url": "https://github.com/skymoonya/rsbuild-plugin-mkcert/issues"
   },
-  "homepage": "https://github.com/liuweiGL/vite-plugin-mkcert#readme",
+  "homepage": "https://github.com/skymoonya/rsbuild-plugin-mkcert#readme",
   "engines": {
     "node": ">=v16.7.0"
   },
@@ -37,7 +37,7 @@
     }
   },
   "scripts": {
-    "test": "pnpm build && del /Q \"./node_modules/.mkcert\" && vite -c playground/vite.config.ts --clearScreen false",
+    "test": "pnpm build && rsbuild dev -c playground/rsbuild.config.ts",
     "build": "tsx ./script/build.mts",
     "lint": "tsc --noEmit && eslint \"plugin/**/*.ts\" --color --quiet",
     "release": "semantic-release"
@@ -64,9 +64,9 @@
     "semantic-release": "^22.0.12",
     "tsx": "^4.7.0",
     "typescript": "^5.3.3",
-    "vite": "5.0.11"
+    "@rsbuild/core": "^0.4.15"
   },
   "peerDependencies": {
-    "vite": ">=3"
+    "@rsbuild/core": "*"
   }
 }
