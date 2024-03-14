@@ -26,7 +26,7 @@ import VersionManger from './version'
 
 export type SourceType = 'github' | 'coding' | BaseSource
 
-export type MkcertBaseOptions = {
+export type MkcertOptions = {
   /**
    * Whether to force generate
    */
@@ -68,8 +68,6 @@ export type MkcertBaseOptions = {
    */
   certFileName?: string
 }
-
-export type MkcertOptions = MkcertBaseOptions
 
 class Mkcert {
   private force?: boolean

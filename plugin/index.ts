@@ -2,11 +2,11 @@ import { type RsbuildPlugin } from '@rsbuild/core'
 
 import { PLUGIN_NAME } from './lib/constant'
 import { getDefaultHosts } from './lib/util'
-import Mkcert, { MkcertBaseOptions } from './mkcert/index'
+import Mkcert, { MkcertOptions } from './mkcert/index'
 
 export { BaseSource, type SourceInfo } from './mkcert/source'
 
-export type MkcertPluginOptions = MkcertBaseOptions & {
+export type MkcertPluginOptions = MkcertOptions & {
   /**
    * The hosts that needs to generate the certificate.
    */
