@@ -10,9 +10,10 @@
     "rsbuild-plugin",
     "certificate",
     "https",
-    "mkcert"
+    "mkcert",
+    "ssl"
   ],
-  "author": "liuweigl",
+  "author": "skymoonya",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/skymoonya/rsbuild-plugin-mkcert/issues"
@@ -22,25 +23,21 @@
     "node": ">=v16.7.0"
   },
   "packageManager": "pnpm@8.0.0+",
-  "types": "./dist/index.d.ts",
-  "module": "./dist/mkcert.mjs",
-  "main": "./dist/mkcert.js",
-  "files": [
-    "plugin",
-    "dist"
-  ],
+  "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/mkcert.mjs",
-      "require": "./dist/mkcert.js",
-      "types": "./dist/index.d.ts"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     }
   },
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
   "scripts": {
-    "test": "pnpm build && rsbuild dev -c playground/rsbuild.config.ts",
-    "build": "tsx ./script/build.mts",
-    "lint": "tsc --noEmit && eslint \"plugin/**/*.ts\" --color --quiet",
-    "release": "semantic-release"
+    "dev": "rsbuild dev -c playground/rsbuild.config.ts",
+    "build": "unbuild",
+    "lint": "tsc --noEmit && eslint \"src/**/*.ts\" --color --quiet",
+    "release": "release-it"
   },
   "dependencies": {
     "@octokit/rest": "^20.0.2",
@@ -49,24 +46,25 @@
     "picocolors": "^1.0.0"
   },
   "devDependencies": {
-    "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/git": "^10.0.1",
+    "@rsbuild/core": "^0.4.15",
     "@types/debug": "^4.1.12",
     "@types/node": "^20.10.7",
     "@typescript-eslint/eslint-plugin": "^6.18.1",
     "@typescript-eslint/parser": "^6.18.1",
-    "esbuild": "^0.19.11",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-prettier": "^5.1.2",
     "prettier": "^3.1.1",
-    "semantic-release": "^22.0.12",
+    "release-it": "^17.1.1",
     "tsx": "^4.7.0",
     "typescript": "^5.3.3",
-    "@rsbuild/core": "^0.4.15"
+    "unbuild": "^2.0.0"
   },
   "peerDependencies": {
     "@rsbuild/core": "*"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
   }
 }
